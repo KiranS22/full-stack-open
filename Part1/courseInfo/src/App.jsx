@@ -37,7 +37,7 @@ export const Part = ({ name, exercises }) => {
   return (
     <div>
       <p>
-        Part: {name} Number of exercises {exercises}{" "}
+        Part: {name} Number of exercises: {exercises}{" "}
       </p>
     </div>
   );
