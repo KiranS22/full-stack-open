@@ -1,20 +1,15 @@
 import React from "react";
 
-const StatisticLine = ({ value, text }) => {
+const StatisticLine = ({ text, value }) => {
   return (
-    <>
-      <div>
-        {text === "Percentage of positive feedback" ? (
-          <p>
-            {text}: {value}%{" "}
-          </p>
-        ) : (
-          <p>
-            {text}: {value}{" "}
-          </p>
-        )}
-      </div>
-    </>
+    <table>
+      <tbody>
+        <tr>
+          <td>{text}</td>
+          <td>{value}</td>
+        </tr>
+      </tbody>
+    </table>
   );
 };
 
