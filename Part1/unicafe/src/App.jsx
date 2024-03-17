@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Statistics from "./Statistics";
+import StatisticLine from "./StatisticLine";
 import Button from "./Button";
 
 const App = () => {
@@ -14,7 +14,7 @@ const App = () => {
   };
 
   const percentOfPosFeedback = () => {
-    return total === 0 ? 0 : ((good / total) * 100).toFixed(8);
+    return total === 0 ? 0 : ((good / total) * 100);
   };
 
   // Event handler for 'Good' button click
@@ -41,14 +41,27 @@ const App = () => {
       <Button onSmash={handleGoodClick} text="Good" />
       <Button onSmash={handleNeutralClick} text="Neutral" />
       <Button onSmash={handleBadClick} text="Bad" />
-      <Statistics
-        good={good}
-        neutral={neutral}
-        bad={bad}
-        total={total}
-        avg={calculateAvg()}
-        percent={percentOfPosFeedback()}
-      />
+      {good === 0 && neutral === 0 && bad === 0 ? (
+        <div>
+          <p>No feedback collected yet</p>
+        </div>
+      ) : (
+        <>
+          <h2>Statistics</h2>
+          <StatisticLine value={good} text="Good" />
+          <StatisticLine value={neutral} text="Neutral" />
+          <StatisticLine value={bad} text="Bad" />
+          <StatisticLine value={total} text="Total" />
+          <StatisticLine
+            value={calculateAvg()}
+            text="Average number of responses"
+          />
+          <StatisticLine
+            value={percentOfPosFeedback()}
+            text="Percentage of positive feedback"
+          />
+        </>
+      )}
     </>
   );
 };
