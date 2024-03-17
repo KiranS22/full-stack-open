@@ -1,6 +1,18 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const App = () => {
+  const trackPoints = {
+    0: 0,
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+    5: 0,
+    6: 0,
+    7: 0,
+    8: 0,
+  };
+
   const anecdotes = [
     "If it hurts, do it more often.",
     "Adding manpower to a late software project makes it later!",
@@ -11,15 +23,50 @@ const App = () => {
     "Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.",
     "The only way to go fast, is to go well.",
   ];
-  const selectRand = (arr) => {
-    setSelected(Math.floor(Math.random() * arr.length));
-  };
+
   const [selected, setSelected] = useState(0);
+  const [points, setPoints] = useState(trackPoints);
+  const [largest, setLargest] = useState(0);
+
+  const findBiggest = () => {
+    let maxPoints = -Infinity;
+    let mostVotedAnecdote = null;
+    for (let index in points) {
+      if (points[index] > maxPoints) {
+        maxPoints = points[index];
+        mostVotedAnecdote = parseInt(index); // Convert index to number
+      }
+    }
+    setLargest(mostVotedAnecdote);
+  };
+
+  useEffect(() => {
+    findBiggest();
+  }, [points]);
+
+  const selectRand = () => {
+    setSelected(Math.floor(Math.random() * anecdotes.length));
+  };
+
+  const castVote = () => {
+    setPoints((prevPoints) => {
+      const newPoints = { ...prevPoints };
+      newPoints[selected] += 1;
+      return newPoints;
+    });
+  };
 
   return (
     <>
       <div>{anecdotes[selected]}</div>
-      <button onClick={() => selectRand(anecdotes)}>Next anecdote</button>
+      <button onClick={selectRand}>Next anecdote</button>
+      <button onClick={castVote}>Vote</button>
+      {largest !== 0 && (
+        <>
+          <h3>The anecdote with the most votes is.... </h3>
+          <p>{anecdotes[largest]}</p>
+        </>
+      )}
     </>
   );
 };
