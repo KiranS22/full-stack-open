@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Display from "./Display";
+import Statistics from "./Statistics";
 import Button from "./Button";
 
 const App = () => {
@@ -41,7 +41,7 @@ const App = () => {
       <Button onSmash={handleGoodClick} text="Good" />
       <Button onSmash={handleNeutralClick} text="Neutral" />
       <Button onSmash={handleBadClick} text="Bad" />
-      <Display
+      <Statistics
         good={good}
         neutral={neutral}
         bad={bad}
